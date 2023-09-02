@@ -1,0 +1,109 @@
+{% extends "plantilla_padre.html" %}
+{% load static %}
+
+{% block titulo %}
+    Principal
+{% endblock %}
+
+
+{% block contenido %}
+<section data-bs-version="5.1" class="header11 cid-sV5pRqRGg2" id="header11-1">
+
+
+
+
+
+        <div class="container">
+            <div class="row justify-content-center">
+            {% if datos  %}
+                <div class="col-12 col-md-4 image-wrapper">
+                    {% if datos and datos.Imagen %}
+                    <img class="w-100" src="{{ datos.Imagen.url }}" alt="">
+                    {% endif %}
+                </div>
+                <div class="col-12 col-md">
+                    <div class="text-wrapper text-center">
+                        <h1 class="mbr-section-title mbr-fonts-style mb-3 display-1">
+                            <strong>{{ datos.Titulo }}</strong></h1>
+                        <p class="mbr-text mbr-fonts-style display-7">
+                            <strong>{{ datos.Frase }}</strong>
+                            <br>{{ datos.Descripcion|safe }}</p>
+                        <div class="mbr-section-btn mt-3"><a class="btn btn-info display-7"
+                                                             href="{% url 'menu' %}">Menú</a></div>
+                    </div>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section data-bs-version="5.1" class="contacts2 cid-sXvNvcjSsH" id="contacts2-1v">
+        <!---->
+
+
+        <div class="container">
+            <div class="mbr-section-head">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Contáctenos&nbsp;a:</strong></h3>
+
+            </div>
+            <div class="row justify-content-center mt-4">
+                <div class="card col-12 col-md-6">
+                    <div class="card-wrapper">
+                        <div class="image-wrapper">
+                            <span class="mbr-iconfont mobi-mbri-phone mobi-mbri"></span>
+                        </div>
+                        <div class="text-wrapper">
+                            <h6 class="card-title mbr-fonts-style mb-1 display-5"><strong>Teléfono</strong><br></h6>
+                            <p class="mbr-text mbr-fonts-style display-7">{{ config.telefono }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card col-12 col-md-6">
+                    <div class="card-wrapper">
+                        <div class="image-wrapper">
+                            <span class="mbr-iconfont mobi-mbri-letter mobi-mbri"></span>
+                        </div>
+                        <div class="text-wrapper">
+                            <h6 class="card-title mbr-fonts-style mb-1 display-5">
+                                <strong>Correo</strong></h6>
+                            <p class="mbr-text mbr-fonts-style display-7">{{ config.correo }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card col-12 col-md-6">
+                    <div class="card-wrapper">
+                        <div class="image-wrapper">
+                            <span class="mbr-iconfont mobi-mbri-globe mobi-mbri"></span>
+                        </div>
+                        <div class="text-wrapper">
+                            <h6 class="card-title mbr-fonts-style mb-1 display-5"><strong>Dirección</strong><br></h6>
+                            <p class="mbr-text mbr-fonts-style display-7">{{ config.direccion }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card col-12 col-md-6">
+                    <div class="card-wrapper">
+                        <div class="image-wrapper">
+                            <span class="mbr-iconfont mobi-mbri-bulleted-list mobi-mbri"></span>
+                        </div>
+                        <div class="text-wrapper">
+                            <h6 class="card-title mbr-fonts-style mb-1 display-5">
+                                <strong>Horas de trabajo</strong></h6>
+                            <p class="mbr-text mbr-fonts-style display-7">
+                                {{ config.horarios|safe }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+
+{% endblock%}

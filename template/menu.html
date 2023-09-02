@@ -1,0 +1,138 @@
+{% extends "plantilla_padre.html" %}
+{% load static %}
+
+{% block titulo %}
+    Menu
+{% endblock %}
+
+
+{% block contenido %}
+
+    <div class="container">
+        <div class="mbr-section-head">
+            <h4 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Menu</strong></h4>
+
+        </div>
+    <div class="row mt-4">
+            <div class="item features-image сol-12 col-md-6 col-lg-4">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <img class="img_menu" src="{{ datos.Imagen_SalaTransitoria.url }}" alt="" title="">
+                    </div>
+                    <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-5">{{ datos.Titulo_SalaTransitoria }}</h5>
+
+
+                    </div>
+                    <div class="mbr-section-btn item-footer mt-2">
+                        <a href="{% url 'sala_transitoria' %}" class="btn item-btn btn-info display-7" >Ir ahora</a></div>
+                </div>
+            </div>
+            <div class="item features-image сol-12 col-md-6 col-lg-4">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <img class="img_menu" src="{{ datos.Imagen_DescripcionDeSalas.url }}" alt="" title="">
+                    </div>
+                    <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-5">{{ datos.Titulo_DescripcionDeSalas }}</h5>
+
+
+                    </div>
+                    <div class="mbr-section-btn item-footer mt-2"><a href="{% url 'descripcion_salas' %}" class="btn item-btn btn-info display-7">Ir ahora</a></div>
+                </div>
+            </div>
+        <div class="item features-image сol-12 col-md-6 col-lg-4">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <img class="img_menu" src="{{ datos.Imagen_TrabajoInvestigativo.url }}" alt="" title="" data-slide-to="3" data-bs-slide-to="3">
+                    </div>
+                    <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-5">{{ datos.Titulo_TrabajoInvestigativo }}</h5>
+
+
+                    </div>
+                    <div class="mbr-section-btn item-footer mt-2"><a href="{% url 'trabajo_investigativo' %}" class="btn item-btn btn-info display-7">Ir ahora</a></div>
+                </div>
+            </div>
+
+
+
+        </div>
+<div class="row mt-4">
+
+    <div class="item features-image сol-12 col-md-6 col-lg-4">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <img class="img_menu" src="{{ datos.Imagen_Galeria.url }}" alt="" title="">
+                    </div>
+                    <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-5">{{ datos.Titulo_Galeria }}</h5>
+
+
+                    </div>
+                    <div class="mbr-section-btn item-footer mt-2"><a href="{% url 'galeria' %}" class="btn item-btn btn-info display-7" >Ir ahora</a></div>
+                </div>
+            </div>
+        <div class="item features-image сol-12 col-md-6 col-lg-4">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <img class="img_menu" src="{{ datos.Imagen_RecorridoVirtual.url }}" alt="" title="">
+                    </div>
+                    <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-5">{{ datos.Titulo_RecorridoVirtual }}</h5>
+
+
+                    </div>
+                    <div class="mbr-section-btn item-footer mt-2"><a href="{% url 'recorrido_virtual' %}" class="btn item-btn btn-info display-7" >Ir ahora</a></div>
+                </div>
+            </div>
+
+    <div class="item features-image сol-12 col-md-6 col-lg-4">
+                <div class="item-wrapper">
+                    <div  class="item-img">
+                        <img class="img_menu" src="{{ datos.Imagen_RecorridoInteractivo.url }}" alt="" title="">
+                    </div>
+                    <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-5">{{ datos.Titulo_RecorridoInteractivo }}</h5>
+
+
+                    </div>
+                    <div class="mbr-section-btn item-footer mt-2"><a href="{% url 'recorrido_interactivo' %}" class="btn item-btn btn-info display-7" >Ir ahora</a></div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+    <div class="row mt-4">
+
+    <div class="item features-image сol-12 col-md-6 col-lg-4">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <img class="img_menu" src="{{ datos.Imagen_JuegosInteractivo.url }}" alt="" title="">
+                    </div>
+                    <div class="item-content">
+                        <h5 class="item-title mbr-fonts-style display-5">{{ datos.Titulo_JuegosInteractivo }}</h5>
+
+
+                    </div>
+                    <div class="mbr-section-btn item-footer mt-2"><a href="{% url 'juegos_interactivo' %}" class="btn item-btn btn-info display-7" >Ir ahora</a></div>
+                </div>
+    </div>
+    </div>
+
+
+</div>
+
+
+
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+
+{% endblock%}

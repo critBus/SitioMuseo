@@ -1,0 +1,40 @@
+{% extends "plantilla_padre.html" %}
+{% load static %}
+
+{% block titulo %}
+    Menu
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<div class="container">
+        <div class="row mt-4">
+            <div class="col-12 col-lg-6 mt-4">
+                <a class="image-wrapper" href="{% url 'galeria_vitrina' %}">
+                    <img src="{% static 'img/background3.jpg' %}" alt="Mobirise">
+                    <p class="mbr-text mbr-fonts-style mt-2 align-center display-4"
+                    style="color: black;"
+                    >vitrinas</p>
+                </a>
+            </div>
+            <div class="col-12 col-lg-6 mt-4">
+                <a class="image-wrapper" href="{% url 'galeria_galeria' %}">
+                    <img src="{% static 'img/background8.jpg' %}" alt="Mobirise">
+                    <p class="mbr-text mbr-fonts-style mt-2 align-center display-4"
+                    style="color: black;"
+                    >Galeria&nbsp;</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+
+{% endblock%}

@@ -1,0 +1,72 @@
+{% extends "plantilla_padre.html" %}
+{% load static %}
+
+
+{% block titulo %}
+    Menu
+{% endblock %}
+
+
+{% block contenido %}
+
+
+<section data-bs-version="5.1" class="slider2 cid-sWW6TJNlpo" id="slider2-1j">
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10">
+                <div class="carousel slide" id="sXAHZbyq9y" data-interval="5000" data-bs-interval="5000">
+
+                    <ol class="carousel-indicators">
+                        {% for item in    lista %}
+                        <li data-slide-to="{{ item.indice }}" data-bs-slide-to="{{ item.indice }}" class="{% if item.indice == 0 %}active{% endif %}" data-target="#sXAHZbyq9y" data-bs-target="#sXAHZbyq9y"></li>
+                        {% endfor %}
+
+
+                    </ol>
+                    <div class="carousel-inner">
+
+                        {% for item in  lista %}
+                        <div class="carousel-item slider-image item {% if item.indice == 0 %}active{% endif %}">
+                            <div class="item-wrapper">
+                                <img class="d-block img_galeria" src="{{ item.Imagen.url }}" data-slide-to="{{ item.indice }}" data-bs-slide-to="{{ item.indice }}" alt="">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <div class="font-details">
+                                    <h5 class="mbr-section-subtitle mbr-fonts-style display-4">
+                                        <strong>{{ item.Nombre }}</strong><br><strong><br></strong></h5>
+
+                                    <p class="mbr-section-text mbr-fonts-style display-7">
+                                        {{ item.Descripcion|safe }}</p>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+                    <a class="carousel-control carousel-control-prev" role="button" data-slide="prev" data-bs-slide="prev" href="#sXAHZbyq9y">
+                        <span class="mobi-mbri mobi-mbri-arrow-prev" aria-hidden="true"></span>
+                        <span class="sr-only visually-hidden">Previous</span>
+                    </a>
+                    <a class="carousel-control carousel-control-next" role="button" data-slide="next" data-bs-slide="next" href="#sXAHZbyq9y">
+                        <span class="mobi-mbri mobi-mbri-arrow-next" aria-hidden="true"></span>
+                        <span class="sr-only visually-hidden">Next</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+
+{% endblock%}

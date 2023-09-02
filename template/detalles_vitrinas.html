@@ -1,0 +1,60 @@
+{% extends "plantilla_padre.html" %}
+{% load static %}
+
+{% block titulo %}
+    detalles vitrinas
+{% endblock %}
+
+{% block css_extra %}
+{% endblock %}
+
+{% block contenido %}
+
+<section data-bs-version="5.1" class="image1 cid-tLd0a9PcPp" id="image1-1e">
+
+
+
+
+    <div class="container mt-4">
+        <div class="row align-items-center mt-4">
+            <div class="col-12 col-lg-6">
+                <div class="image-wrapper">
+                    <img src="{{ item.Imagen.url }}" alt="Mobirise">
+
+                </div>
+            </div>
+            <div class="col-12 col-lg">
+                <div class="text-wrapper">
+                    <h3 class="mbr-section-title mbr-fonts-style mb-3 display-5">
+                        <strong>{{ item.Nombre}}</strong></h3>
+                    <p class="mbr-text mbr-fonts-style display-7">
+                        {{ item.Descripcion|safe}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row align-items-center mt-4">
+            <div class="col">
+                <div id="qrcode" style="width:100px; height:100px; margin-top:15px;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+<script src="{% static 'js/Librerias/qrcode.min.js' %}"></script>
+<script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	width : 100,
+	height : 100,
+	text: "{{config.servidor}}{{ request.path }}"
+});
+
+
+
+</script>
+{% endblock%}

@@ -1,0 +1,407 @@
+{% extends "plantilla_padre.html" %}
+{% load static %}
+
+{% block titulo %}
+    Juego Marcar
+{% endblock %}
+
+{% block css_extra %}
+    <link rel="stylesheet" href="{% static 'css/juego_marcar_0.css' %}">
+    <link rel="stylesheet" href="{% static 'css/juego_marcar.css' %}">
+{% endblock %}
+
+{% block contenido %}
+    <div id="idContenido">
+
+
+
+ <section data-bs-version="5.1" class="features12 cid-tOmcs7lI8C" id="features13-1i" >
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-6">
+                <div class="card-wrapper">
+                    <div class="card-box align-left">
+                        <h4 class="card-title mbr-fonts-style mb-4 display-2">
+                            <strong>Seleccione la respuesta correcta.</strong></h4>
+                        <p class="mbr-text mbr-fonts-style mb-4 display-7">
+                            El museo de jaruco se encuentra localizado en:</p>
+                        <div class="mbr-section-btn"><a class="btn btn-primary display-4" href="https://mobiri.se">Siguiente Pregunta</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6"  >
+
+                <div class="item mbr-flex" >
+                    <div class="icon-box">
+                        <span class="mbr-iconfont mobi-mbri-error mobi-mbri"></span>
+                    </div>
+                    <div class="text-box">
+                        <h4 class="icon-title mbr-black mbr-fonts-style display-7"></h4>
+                        <h5 class="icon-text mbr-black mbr-fonts-style display-4">Santa Cruz del Norte</h5>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+    </div>
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+
+    <script>
+        class Respuesta{
+            constructor(){
+                this.texto="";
+                this.esCorrecta=false;
+                this.valorNumerico=0;
+            }
+        }
+        class Pregunta{
+            constructor(){
+                this.lista_respuestas=[];
+                this.texto="";
+                this.indice_seleccionada=0;
+            }
+            getSeleccionada(){
+                return this.lista_respuestas[this.indice_seleccionada];
+            }
+            getRespuestaCorrecta(){
+                for (let i = 0; i < this.lista_respuestas.length; i++) {
+                    const respuesta = this.lista_respuestas[i];
+                    if(respuesta.esCorrecta){
+                        return respuesta;
+                    }
+                }
+                return null;
+            }
+            acerto(){
+                return this.getSeleccionada().esCorrecta;
+            }
+            setSeleccionada(indice){
+                this.indice_seleccionada=indice;
+            }
+        }
+        class Juego{
+            constructor(){
+                this.lista_preguntas=[];
+                this.indice=0;
+                //this.puntos=0;
+
+            }
+            add(textoPregunta,lista_parRespuesta_Correcta){
+                let p=new Pregunta();
+                p.texto=textoPregunta;
+                for (let i = 0; i < lista_parRespuesta_Correcta.length; i++) {
+                    const par = lista_parRespuesta_Correcta[i];
+                    let r=new Respuesta();
+                    r.texto=par[0];
+                    r.esCorrecta=par[1];
+                    p.lista_respuestas.push(r);
+                }
+                this.lista_preguntas.push(p);
+            }
+            moverseALaSiguientePregunta(){
+                this.indice+=1;
+                return this.getPreguntaActual();
+            }
+            getPreguntasCorrectas(){
+                let correctas=[];
+                for (let i = 0; i < this.lista_preguntas.length; i++) {
+                    const pregunta = this.lista_preguntas[i];
+                    if(pregunta.acerto()){correctas.push(pregunta);}
+                }
+                return correctas;
+            }
+            getCantidadPreguntasCorrectas(){
+                return this.getPreguntasCorrectas().length;
+                // let cantidad=0;
+                // for (let i = 0; i < this.lista_preguntas.length; i++) {
+                //     const pregunta = this.lista_preguntas[i];
+                //     if(pregunta.acerto()){cantidad+=1;}
+                // }
+                // return cantidad;
+            }
+            getPreguntasIncorrectas(){
+                let lista=[];
+                for (let i = 0; i < this.lista_preguntas.length; i++) {
+                    const pregunta = this.lista_preguntas[i];
+                    if(!pregunta.acerto()){lista.push(pregunta);}
+                }
+                return lista;
+            }
+            getCantidadPreguntasIncorrectas(){
+                return this.getPreguntasIncorrectas().length;
+
+            }
+            getPreguntaActual(){
+                return this.lista_preguntas[this.indice];
+            }
+            getCantidadDePreguntas(){
+                return this.lista_preguntas.length;
+            }
+            hayOtraPregunta(){
+                return this.indice<this.getCantidadDePreguntas()-1;
+            }
+        }
+
+        class AdminJuegoHTML{
+            constructor(){
+                this.juego=new Juego();
+
+                this.idContenedorDeSecciones="";
+                this.idSeccionPregunta="";
+                this.idSeccionRespondido="";
+                this.idSeccionTerminado="";
+
+                this.nombreMetodo_AlApretarEnRespuesta="";
+                this.nombreMetodo_AlApretarEnSiguientePregunta="";
+                this.nombreMetodo_AlApretarEnVerResultados="";
+                this.nombreMetodo_AlApretarEnVolverJuegos="";
+            }
+            setContidoHtmlContendor(codigoHTML){
+                let contendenor=document.getElementById(this.idContenedorDeSecciones);
+                contendenor.innerHTML=codigoHTML;
+            }
+            mostrarSeccionPregunta(){
+                let pregunta=this.juego.getPreguntaActual();
+                //cargar Las preguntas
+                this.setContidoHtmlContendor(this.getHTML_Seccion_Pregunta());
+            }
+            mostrarSeccionRespondido(){
+                let pregunta=this.juego.getPreguntaActual();
+                //cargar Las preguntas
+                let contendenor=document.getElementById(this.idContenedorDeSecciones);
+                contendenor.innerHTML=this.getHTML_Seccion_Respondido();
+
+            }
+            getHTML_Seccion_Resultados(){
+                let cantidadCorrectas=this.juego.getCantidadPreguntasCorrectas();
+                let cantidadIncorrectas=this.juego.getCantidadPreguntasIncorrectas();
+                let idHTML='id="'+this.idSeccionTerminado+'"';
+
+                let rHTML='';
+
+  rHTML+='<section data-bs-version="5.1" class="features16 cid-tOGC62huLV" id="features17-1o">';
+
+
+
+    rHTML+='<div class="container">';
+        rHTML+='<div class="content-wrapper">';
+            rHTML+='<div class="row align-items-center">';
+                rHTML+='<div class="col-12 col-lg-6">';
+                    rHTML+='<div class="image-wrapper">';
+                        rHTML+='<img src="{% static 'img/team2.jpg' %}" alt="Mobirise">';
+                    rHTML+='</div>';
+                rHTML+='</div>';
+                rHTML+='<div class="col-12 col-lg">';
+                    rHTML+='<div class="text-wrapper">';
+
+                        rHTML+='<p class="mbr-text mbr-fonts-style mb-4 display-4">';
+                            rHTML+='Usted tiene '+cantidadCorrectas+' respuestas correctas y '+cantidadIncorrectas+' incorrecta</p>';
+                        rHTML+='<div class="mbr-section-btn mt-3"><a class="btn btn-primary display-4" href="{% url 'juegos_interactivo' %}">Continuar</a></div>';
+                    rHTML+='</div>';
+                rHTML+='</div>';
+            rHTML+='</div>';
+        rHTML+='</div>';
+    rHTML+='</div>';
+rHTML+='</section>';
+
+                {#let rHTML='<div '+idHTML+' >Seccion Respondido<br/>';#}
+                {#rHTML+='<span>Respondiste Bien un total de '+cantidadCorrectas+' preguntas</span><br/>';#}
+                {#rHTML+='<button id="idBotonVolver" onclick="'+this.nombreMetodo_AlApretarEnVolverJuegos+'()">Volver</button>';#}
+                {#rHTML+='</div>';#}
+                return rHTML;
+            }
+            mostrarSeccionResultado(){
+                this.setContidoHtmlContendor(this.getHTML_Seccion_Resultados());
+            }
+            evento_SeleccionoRespuesta(indice){
+                let pregunta=this.juego.getPreguntaActual();
+                pregunta.setSeleccionada(indice);
+                this.mostrarSeccionRespondido();
+            }
+            evento_DesplasarseSiguientePregunta(){
+                let pregunta=this.juego.moverseALaSiguientePregunta();
+                this.mostrarSeccionPregunta();
+            }
+            evento_IrAresultado(){
+                this.mostrarSeccionResultado();
+            }
+            getHTML_Seccion_Respondido(){
+                let pregunta=this.juego.getPreguntaActual();
+                let respuestaSeleccionada=pregunta.getSeleccionada();
+                let acerto=pregunta.acerto();
+                let respuestaCorrecta=pregunta.getRespuestaCorrecta();
+                let hayOtraPregunta=this.juego.hayOtraPregunta();
+                let idHTML='id="'+this.idSeccionRespondido+'"';
+
+                let rHTML='';
+
+                rHTML+='<section data-bs-version="5.1" class="content6 cid-tOmktvqzOw" id="content6-1j">';
+
+   rHTML+=' <div class="container">';
+        rHTML+='<div class="row justify-content-center">';
+            rHTML+='<div class="col-md-12 col-lg-10">';
+                rHTML+='<hr class="line">';
+                rHTML+='<p class="mbr-text align-center mbr-fonts-style my-4 display-5">';
+                    rHTML+='<em>Su respuesta es '+(acerto?'Correcta':'Incorrecta')+'!</em></p>';
+               rHTML+=' <hr class="line">';
+            rHTML+='</div>';
+       rHTML+=' </div>';
+    rHTML+='</div>';
+rHTML+='</section>';
+
+rHTML+='<section data-bs-version="5.1" class="content12 cid-tOGwUYXJN3" id="content12-1n">';
+
+    rHTML+='<div class="container">';
+        rHTML+='<div class="row justify-content-center">';
+          rHTML+='  <div class="col-md-12 col-lg-10">';
+                rHTML+='<div class="mbr-section-btn align-center"><a class="btn btn-primary display-4" href="{% url 'juegos_interactivo' %}">Cerrar</a>';
+                    rHTML+='<a class="btn btn-primary display-4" onclick="'+(hayOtraPregunta?this.nombreMetodo_AlApretarEnSiguientePregunta:this.nombreMetodo_AlApretarEnVerResultados)+'();">' +
+                        (hayOtraPregunta?'Siguiente Pregunta':'Ver Resultados') +
+                        '</a></div>';
+            rHTML+='</div>';
+        rHTML+='</div>';
+   rHTML+=' </div>';
+rHTML+='</section>';
+
+                {#let rHTML='<div '+idHTML+' >Seccion Respondido<br/>';#}
+                {#if(acerto){#}
+                {#    rHTML+='<span>Correcto</span><br/>';#}
+                {# }else{#}
+                {#    rHTML+='<span>Incorrecto</span><br/>';#}
+                {#    rHTML+='<span>La Respeusta Correcta Era:</span><br/>';#}
+                {#    rHTML+='<span>'+respuestaCorrecta.texto+'</span><br/>';#}
+                {# }#}
+
+                {#if(hayOtraPregunta){#}
+                {#    rHTML+='<button id="idBotonSiguientePregunta" onclick="'+this.nombreMetodo_AlApretarEnSiguientePregunta+'()">Siguinte Pregunta</button>';#}
+                {# }else{#}
+                {#    rHTML+='<button id="idBotonVerResultados" onclick="'+this.nombreMetodo_AlApretarEnVerResultados+'()">Ver Resultados</button>';#}
+                {# }#}
+                {#rHTML+='</div>';#}
+                return rHTML;
+            }
+            getHTML_Respuesta(respuesta,indice){
+                let onClickJS='onclick="'+this.nombreMetodo_AlApretarEnRespuesta+'('+indice+');"';
+                let idHTML='id="idRespuesta_'+indice+'"';
+
+
+                let rHTML='<div class="item mbr-flex" '+idHTML+' '+onClickJS+'>';
+                rHTML+='<div class="icon-box">';
+                rHTML+='<span class="mbr-iconfont mobi-mbri-error mobi-mbri"></span>';
+                rHTML+='</div>';
+                rHTML+='<div class="text-box">';
+                rHTML+='<h4 class="icon-title mbr-black mbr-fonts-style display-7"></h4>';
+                rHTML+='<h5 class="icon-text mbr-black mbr-fonts-style display-4">'+respuesta.texto+'</h5>';
+                rHTML+='</div>';
+                rHTML+=' </div>';
+                return rHTML;
+
+                //return '<span '+idHTML+' '+onClickJS+' >'+respuesta.texto+'</span>';
+            }
+            getHTML_Seccion_Pregunta(){
+                let pregunta=this.juego.getPreguntaActual();
+                let idHTML='id="'+this.idSeccionPregunta+'"';
+
+                let rHTML='';
+
+                rHTML+='<section data-bs-version="5.1" class="features12 cid-tOmcs7lI8C" id="features13-1i" >';
+
+    rHTML+='<div class="container">';
+        rHTML+='<div class="row justify-content-center">';
+            rHTML+='<div class="col-12 col-lg-6">';
+                rHTML+='<div class="card-wrapper">';
+                    rHTML+='<div class="card-box align-left">';
+                        rHTML+='<h4 class="card-title mbr-fonts-style mb-4 display-2">';
+                            rHTML+='<strong>Seleccione la respuesta correcta.</strong></h4>';
+                        rHTML+='<p class="mbr-text mbr-fonts-style mb-4 display-7">';
+                            rHTML+=''+pregunta.texto+'</p>';
+                        //rHTML+='<div class="mbr-section-btn"><a class="btn btn-primary display-4" href="https://mobiri.se">Siguiente Pregunta</a></div>';
+                    rHTML+='</div>';
+                rHTML+='</div>';
+            rHTML+='</div>';
+            rHTML+='<div class="col-12 col-lg-6"  >';
+
+
+
+                //let rHTML='<div '+idHTML+' >Seccion Pregunta <br/>';
+                for (let i = 0; i < pregunta.lista_respuestas.length; i++) {
+                    const respuesta = pregunta.lista_respuestas[i];
+                    let respuestaHTML=this.getHTML_Respuesta(respuesta,i);
+                    rHTML+=respuestaHTML;//+'<br/>';
+                }
+                //rHTML+='</div>';
+
+                rHTML+='</div>';
+        rHTML+='</div>';
+    rHTML+='</div>';
+rHTML+='</section>';
+
+                return rHTML;
+            }
+            start(){
+                this.mostrarSeccionPregunta();
+            }
+        }
+
+
+
+        const AJ=new AdminJuegoHTML();
+        AJ.idContenedorDeSecciones="idContenido";
+        AJ.idSeccionPregunta="idSeccionPregunta";
+        AJ.idSeccionRespondido="idSeccionRespondido";
+        AJ.idSeccionTerminado="idSeccionTerminado";
+
+        AJ.nombreMetodo_AlApretarEnRespuesta="AlApretarEnRespuesta";
+        AJ.nombreMetodo_AlApretarEnSiguientePregunta="AlApretarEnSiguientePregunta";
+        AJ.nombreMetodo_AlApretarEnVerResultados="AlApretarEnVerResultados";
+        AJ.nombreMetodo_AlApretarEnVolverJuegos="AlApretarEnVolverJuegos";
+
+
+        function AlApretarEnRespuesta(i){
+            AJ.evento_SeleccionoRespuesta(i);
+        }
+        function AlApretarEnSiguientePregunta(){
+            AJ.evento_DesplasarseSiguientePregunta();
+        }
+        function AlApretarEnVerResultados(){
+            AJ.evento_IrAresultado();
+        }
+        function AlApretarEnVolverJuegos(){
+            alert('termino!!!');
+        }
+
+        const J=new Juego();
+        {% for pregunta in dato.pregunta_set.all  %}
+
+
+        J.add("{{ pregunta.enunciado|safe }}",[
+{% for respuesta in pregunta.respuesta_set.all  %}
+    ["{{ respuesta.texto|safe }}",{{ respuesta.es_correcta|lower }}],
+    {% endfor %}
+
+        ]);{% endfor %}
+
+        AJ.juego=J;
+        AJ.start();
+
+
+    </script>
+
+
+{% endblock%}

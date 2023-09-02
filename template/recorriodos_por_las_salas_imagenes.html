@@ -1,0 +1,80 @@
+{% extends "plantilla_padre.html" %}
+{% load static %}
+
+{% block titulo %}
+    Menu
+{% endblock %}
+
+{% block css_extra %}
+<style>
+    .cid-tf9mM5BuyL .item-wrapper {
+    width: 100%;
+}
+.cid-tf9mM5BuyL .carousel-item img {
+    height: 100vh;
+    object-fit: cover;
+}
+@media (min-width: 992px) {
+    .carousel-inner{
+        min-width: 1400px;
+    }
+}
+</style>
+<!--<link rel="stylesheet" href="{% static 'css/recorrido_transitorio/embla.css' %}">-->
+{% endblock %}
+
+{% block contenido %}
+
+<section data-bs-version="5.1" class="slider1 cid-tf9mM5BuyL mbr-fullscreen" id="slider1-t">
+
+    <div class="carousel slide" id="tjhUgRTtGA" data-interval="5000" data-bs-interval="5000">
+        <ol class="carousel-indicators">
+            {% for item in  lista %}
+            <li data-slide-to="{{ forloop.counter0 }}" data-bs-slide-to="{{ forloop.counter0 }}" {% if item.indice == 0 %}class="active"{% endif %}  data-target="#tjhUgRTtGA" data-bs-target="#tjhUgRTtGA"></li>
+{#            <li data-slide-to="1" data-bs-slide-to="1" data-target="#tjhUgRTtGA" data-bs-target="#tjhUgRTtGA"></li>#}
+{#            <li data-slide-to="2" data-bs-slide-to="2" data-target="#tjhUgRTtGA" data-bs-target="#tjhUgRTtGA"></li>#}
+{#            <li data-slide-to="3" data-bs-slide-to="3" data-target="#tjhUgRTtGA" data-bs-target="#tjhUgRTtGA"></li>#}
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner" >
+            {% for item in  lista %}
+            <div class="carousel-item slider-image item {% if item.indice == 0 %}active{% endif %}">
+                <div class="item-wrapper">
+                    <div id="idCargandoImagenDlg_{{ forloop.counter }}"
+                    class=" row  d-flex justify-content-center">
+                               <div class="spinner-border text-primary" 
+                               style="width: 20rem; height: 20rem; display: none;" role="status">
+                                   <span class="sr-only">Loading...</span>
+                                 </div>
+                           </div>
+
+                    <img id="idImagen_{{ forloop.counter }}"
+                    class="d-block w-100" src="{{ item.Imagen.url }}" data-slide-to="{{ forloop.counter0 }}" data-bs-slide-to="{{ forloop.counter0 }}"/>
+
+
+                </div>
+            </div>
+            {% endfor %}
+
+
+        </div>
+        <a class="carousel-control carousel-control-prev" role="button" data-slide="prev" data-bs-slide="prev" href="#tjhUgRTtGA">
+            <span class="mobi-mbri mobi-mbri-arrow-prev" aria-hidden="true"></span>
+            <span class="sr-only visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control carousel-control-next" role="button" data-slide="next" data-bs-slide="next" href="#tjhUgRTtGA">
+            <span class="mobi-mbri mobi-mbri-arrow-next" aria-hidden="true"></span>
+            <span class="sr-only visually-hidden">Next</span>
+        </a>
+    </div>
+</section>
+
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+
+{% endblock%}

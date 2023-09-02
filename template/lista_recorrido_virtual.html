@@ -1,0 +1,49 @@
+{% extends "plantilla_padre.html" %}
+{% load static %}
+
+{% block titulo %}
+    Recorrido Virtual
+{% endblock %}
+
+{% block css_extra %}
+{% endblock %}
+
+{% block contenido %}
+
+
+<section data-bs-version="5.1" class="video3 cid-tf9gSswzCI mt-4" id="video3-q">
+
+
+    <div class="container">
+        <div class="mbr-section-head mt-4">
+            <h4 class="mbr-section-title mbr-fonts-style mb-0 display-2">Recorrido virtual</h4>
+
+        </div>
+        {% for item in lista %}
+
+        <div class="row mt-4">
+            <div class="col-12 video-block">
+                <div class="video-wrapper">
+                    <video width="100%" controls>
+                        <source src="{{ item.Video.url }}"></source>
+                    </video>
+<!--                    <iframe class="mbr-embedded-video"-->
+<!--                                                   src="{{ item.Video.url }}?rel=0&amp;amp;mute=1&amp;showinfo=0&amp;autoplay=0&amp;loop=1&amp;playlist=HujDEPAWboE"-->
+<!--                                                   width="1280" height="720" frameborder="0" allowfullscreen></iframe></div>-->
+                <p class="mbr-text pt-2 mbr-fonts-style display-4">
+                    {{ item.Nombre }}</p>
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock%}
+
+
+
+{% block scripts_extras %}
+
+
+{% endblock%}
