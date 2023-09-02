@@ -1,0 +1,16 @@
+ .modal-dialog {
+     height: auto;
+ }
+
+ .font-details {
+     padding: 20px;
+     background: #000000aa;
+     border-radius: 20px;
+     border: none;
+ }
+
+ .card-hover:hover {
+     cursor: pointer;
+     border: 1px solid #0c63e4;
+     border-radius: 20px;
+ }
